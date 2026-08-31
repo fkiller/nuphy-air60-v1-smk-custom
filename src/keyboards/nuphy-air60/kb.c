@@ -28,6 +28,9 @@ typedef struct {
 
 volatile __xdata user_keyboard_state_t user_keyboard_state;
 
+extern uint8_t action_layer;
+uint8_t        has_anykey(report_keyboard_t *keyboard_report);
+
 void kb_init()
 {
     user_keyboard_state.conn_mode = CONN_MODE_SWITCH;
@@ -99,9 +102,36 @@ static __xdata bool ul_mode_active;
 // While RESET_HOLD (Fn+Tab) is held, pressing FACT_RESET (V) factory-resets settings.
 static __xdata bool reset_mode_active;
 
+static __xdata bool fn_pressed;
+static __xdata bool fn_interrupted;
+
 bool kb_process_record(uint16_t keycode, bool key_pressed)
 {
+    if (fn_pressed && key_pressed && keycode != FN_TAP) {
+        fn_interrupted = true;
+    }
+
     switch (keycode) {
+        case FN_TAP:
+            if (key_pressed) {
+                fn_pressed     = true;
+                fn_interrupted = has_anykey(&keyboard_report) || get_mods();
+                action_layer   = AIR60_WIN_FN_LAYER;
+            } else {
+                clear_keys();
+                action_layer = 0;
+                fn_pressed   = false;
+
+                if (!fn_interrupted) {
+                    add_mods(MOD_BIT(KC_RALT));
+                    send_keyboard_report();
+                    del_mods(MOD_BIT(KC_RALT));
+                    send_keyboard_report();
+                }
+            }
+
+            dprintf("CHANGED LAYER: %d\r\n", action_layer);
+            return false;
         case UL_MODE:
             ul_mode_active = key_pressed;
             return false;

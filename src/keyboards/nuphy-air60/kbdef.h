@@ -134,6 +134,8 @@
 #define RF_BB_SPI_MOSI_P0_7 _P0_7
 #define RF_BB_SPI_MOT_P0_5  _P0_5
 
+#define AIR60_WIN_FN_LAYER 3
+
 enum custom_keycodes {
     LNK_24G = SAFE_RANGE,
     LNK_BT1,
@@ -149,6 +151,7 @@ enum custom_keycodes {
     UL_MODE,     // held: re-route the RGB_* chords to the underglow ("user") LEDs
     RESET_HOLD,  // held: enables the factory-reset chord
     FACT_RESET,  // factory-reset all user settings (only acts while RESET_HOLD is held)
+    FN_TAP,
 
     KB_SAFE_RANGE,
 };

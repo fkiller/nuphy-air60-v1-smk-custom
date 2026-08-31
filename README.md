@@ -6,6 +6,8 @@
 
 [![Build](https://github.com/carlossless/smk/actions/workflows/build.yml/badge.svg)](https://github.com/carlossless/smk/actions/workflows/build.yml) [![](https://img.shields.io/badge/discord-SMK-blue)](https://discord.gg/SZFBDBuxrK)
 
+This fork contains the NuPhy Air60 V1 custom keymap and a ready-to-flash firmware image. See [CUSTOM_FIRMWARE.md](CUSTOM_FIRMWARE.md) for the exact mappings, build, verification, and recovery notes.
+
 This is a keyboard firmware similar to [QMK](https://github.com/qmk/qmk_firmware), but targeting 8051-based devices like the SinoWealth SH68F90A (labeled as BYK916 or BYK901). It's aimed to be at least partially compatible with QMK configurations.
 
 The S (Small) in SMK comes from this firmware using [SDCC](https://sdcc.sourceforge.net/) to build itself.
