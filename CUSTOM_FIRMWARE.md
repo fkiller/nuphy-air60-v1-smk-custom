@@ -39,6 +39,8 @@ python -m unittest discover -s tests
 
 ## Flash and recovery safety
 
+For release downloads and Windows commands, follow [FLASHING.md](FLASHING.md). No source build is necessary to use the attached HEX image.
+
 SMK is experimental. Preserve a verified full stock-firmware dump outside this repository before flashing. Keep the recovery programmer and stock image available because a broken ISP path can require hardware programming to recover the keyboard.
 
 With the keyboard intentionally placed in its supported ISP mode, flash through the upstream target:
