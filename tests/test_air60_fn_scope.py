@@ -8,6 +8,25 @@ KEYBOARD = ROOT / "src" / "keyboards" / "nuphy-air60" / "kb.c"
 
 
 class TestAir60FnScope(unittest.TestCase):
+    def test_mac_shortcut_is_scoped_to_uninterrupted_fn_release(self) -> None:
+        source = KEYBOARD.read_text(encoding="utf-8")
+        tap = source.split("if (!fn_interrupted) {", 1)[1].split('dprintf(', 1)[0]
+        mac, windows = tap.split("} else {", 1)
+        self.assertIn("user_keyboard_state.os_mode == KEYBOARD_OS_MODE_MAC", mac)
+        operations = (
+            "add_mods(MOD_BIT(KC_LCTL));", "add_key(KC_SPC);",
+            "send_keyboard_report();", "del_key(KC_SPC);",
+            "send_keyboard_report();", "del_mods(MOD_BIT(KC_LCTL));",
+            "send_keyboard_report();",
+        )
+        remaining = mac
+        for operation in operations:
+            self.assertIn(operation, remaining)
+            remaining = remaining.split(operation, 1)[1]
+        self.assertIn("add_mods(MOD_BIT(KC_RALT));", windows)
+        self.assertIn("del_mods(MOD_BIT(KC_RALT));", windows)
+        self.assertNotIn("KC_SPC", windows)
+
     def test_left_opt_and_cmd_are_correct_on_the_active_base_layer(self) -> None:
         # Given: the Air60 base layer used for every host OS.
         source = LAYOUT.read_text(encoding="utf-8")

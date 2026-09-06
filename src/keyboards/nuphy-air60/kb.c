@@ -123,10 +123,20 @@ bool kb_process_record(uint16_t keycode, bool key_pressed)
                 fn_pressed   = false;
 
                 if (!fn_interrupted) {
-                    add_mods(MOD_BIT(KC_RALT));
-                    send_keyboard_report();
-                    del_mods(MOD_BIT(KC_RALT));
-                    send_keyboard_report();
+                    if (user_keyboard_state.os_mode == KEYBOARD_OS_MODE_MAC) {
+                        add_mods(MOD_BIT(KC_LCTL));
+                        add_key(KC_SPC);
+                        send_keyboard_report();
+                        del_key(KC_SPC);
+                        send_keyboard_report();
+                        del_mods(MOD_BIT(KC_LCTL));
+                        send_keyboard_report();
+                    } else {
+                        add_mods(MOD_BIT(KC_RALT));
+                        send_keyboard_report();
+                        del_mods(MOD_BIT(KC_RALT));
+                        send_keyboard_report();
+                    }
                 }
             }
 

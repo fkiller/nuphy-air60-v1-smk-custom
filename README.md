@@ -6,7 +6,11 @@
 
 [![Build](https://github.com/carlossless/smk/actions/workflows/build.yml/badge.svg)](https://github.com/carlossless/smk/actions/workflows/build.yml) [![](https://img.shields.io/badge/discord-SMK-blue)](https://discord.gg/SZFBDBuxrK)
 
-This fork contains the NuPhy Air60 V1 custom keymap and a ready-to-flash firmware image. See [CUSTOM_FIRMWARE.md](CUSTOM_FIRMWARE.md) for the exact mappings, build, verification, and recovery notes.
+## Air60 V1 custom fork
+
+Fn tap sends **Right Alt in Win mode** or **Control+Space in Mac mode**, selected by the keyboard's physical Mac/Win switch. Fn combinations retain the existing layer. Shift+Esc and the corrected left OPT/CMD mapping are included. Global matrix, USB and report handling are unchanged by these customizations.
+
+See [CUSTOM_FIRMWARE.md](CUSTOM_FIRMWARE.md) for the firmware image, macOS setup, checksum, build instructions and recovery precautions. The new Mac behavior awaits hardware acceptance testing. Bluetooth is WIP. This is an unofficial, experimental **Air60 V1-only** fork of [SMK](https://github.com/carlossless/smk), distributed under the upstream GPL-2.0 license. The badge above refers to upstream, not this custom image.
 
 This is a keyboard firmware similar to [QMK](https://github.com/qmk/qmk_firmware), but targeting 8051-based devices like the SinoWealth SH68F90A (labeled as BYK916 or BYK901). It's aimed to be at least partially compatible with QMK configurations.
 
